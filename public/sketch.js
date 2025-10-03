@@ -78,7 +78,7 @@ function submit() {
 }
 
 async function setup() {
-    createCanvas(1200,800);
+    createCanvas(windowWidth, windowHeight);
     meToken=random(0,10000);
     video=createCapture(VIDEO,{flipped:true});
     video.hide();
@@ -87,13 +87,7 @@ async function setup() {
     background(255);
     pixelDensity(1);
 
-    /* Tommy's
-    createCanvas(400, 400);
-    background(255, 255, 255, 0);
-    imageMode(CENTER);
-    image(img, width / 2, height / 2, 400, 400);
-    noStroke();
-    */
+
     //create name field and button
     //create instruction text
     instruction = createP('enter your nickname to begin');
@@ -115,6 +109,7 @@ async function setup() {
     inputStuff.position(10, 250);
     //create frequency input and button
     
+
     freqInput = createInput();
     freqInput.id('frequency');
     freqInput.attribute('placeholder', 'enter a frequency');
@@ -134,7 +129,7 @@ async function setup() {
     freqState = createP('idle...');
     freqState.class('freqState');
     freqState.style('width', '400px');
-    freqState.position(10, 130);
+    freqState.position(20, 130);
 
     //create name stuff section
     nameStuff = createDiv();
@@ -148,23 +143,18 @@ async function setup() {
     inputStuff.child(freqInput);
     inputStuff.child(sendButton);
     //create title
-    title = createElement('h1', 'frequency links');
-    title.position(10, -10);
+    title = createElement('h1', 'Virtual Finger Painting');
+    title.position(20, 10);
     title.class('title');
     //create subtitle
-    subtitle = createElement('p', 'a multi-person audio work');
-    subtitle.position(10, 25);
+    subtitle = createElement('p', 'a collaborative, interspecies canvas');
+    subtitle.position(26, 50);
     subtitle.class('subtitle');
     //attribution
-    attribution = createElement('p', 'by Tommy (2023)');
-    attribution.position(10, 35);
+    attribution = createElement('p', 'created by alissa kushner');
+    attribution.position(20, height-70);
     attribution.class('attribution');
-    //create a p5 sound oscillator
-    oscillator = new p5.Oscillator(440, "square");
-    oscillator.amp(0.33);
-    del = new p5.Delay(0.210, 0.66);
-    oscillator.disconnect();
-    oscillator.connect(del);
+
 }
 function draw(){
     if(shouldPlay){
