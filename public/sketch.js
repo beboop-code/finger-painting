@@ -19,7 +19,6 @@ let meToken=0;
 // it can track two plants growing in different parts of the world on top of each other
 
 function preload() {
-    //img = loadImage('holdinghands.png');
     handpos=ml5.handPose({flipped:true});
 }
 
@@ -47,7 +46,7 @@ function drawPrevHands(data){
 
 function sendFreq(){
     const data = [pastHandsX,pastHandsY,pastHandsX2,pastHandsY2,meToken];//[nameField.value(), freqInput.value()]
-    socket.emit("frequency", data);
+    socket.emit("frequencyi", data);
     console.log(data);
 }
 
@@ -73,14 +72,26 @@ socket.on('trigger', (data) => {
 function submit() {
     socket.emit("name", nameField.value());
     freqState.html('idle...');
-    //oscillator.start();
-    shouldPlay = true;
+    //shouldPlay = true;
+
+
+    //maybe comment soon 
+     if (!shouldPlay) {
+        //runDrawLoop();
+        shouldPlay = true;
+        submitButton.html('Pause Drawing');
+    } else {
+        //exitDrawLoop();
+        shouldPlay = false;
+        submitButton.html('Start Drawing');
+    }
 }
 
 async function setup() {
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(windowWidth-30, windowHeight-30);
     meToken=random(0,10000);
     video=createCapture(VIDEO,{flipped:true});
+    video.size(innerWidth, height);
     video.hide();
     handpos.detectStart(video,gotHands);
     //background(250,228,131,77);
@@ -92,7 +103,7 @@ async function setup() {
     //create instruction text
     instruction = createP('enter your nickname to begin');
     instruction.id('instruction');
-    instruction.position(10, 170);
+    instruction.position(20, 170);
     nameField = createInput();
     nameField.id('name');
     nameField.attribute('placeholder', 'enter your nickname');
@@ -110,21 +121,29 @@ async function setup() {
     //create frequency input and button
     
 
-    freqInput = createInput();
-    freqInput.id('frequency');
-    freqInput.attribute('placeholder', 'enter a frequency');
-    freqInput.position(10, 50);
+    // freqInput = createInput();
+    // freqInput.id('frequency');
+    // freqInput.attribute('placeholder', 'enter a frequency');
+    // //freqInput.position(10, 50);
     
-    sendButton = createButton('send');
-    sendButton.id('send');
-    sendButton.position(freqInput.x + freqInput.width + 10, 50);
-    sendButton.mousePressed(sendFreq);
+    // sendButton = createButton('send');
+    // sendButton.id('send');
+    // sendButton.position(freqInput.x + freqInput.width + 10, 50);
+    // sendButton.mousePressed(sendFreq);
     
     //create play button
     buttonEl = createButton('stop');
     buttonEl.mousePressed(play);
     buttonEl.id('buttonText');
     buttonEl.position(10, 90);
+
+
+    //create a clear button
+    clearButton = createButton('clear');
+    clearButton.mousePressed(clearFunct);
+    clearButton.id('clear');
+    clearButton.position(10, 190);
+
     //create frequency state text
     freqState = createP('idle...');
     freqState.class('freqState');
@@ -140,12 +159,15 @@ async function setup() {
     //create input stuff section
     inputStuff.child(buttonEl);
     inputStuff.child(freqState);
-    inputStuff.child(freqInput);
-    inputStuff.child(sendButton);
+    inputStuff.child(clearButton);
+    //inputStuff.child(freqInput);
+    //inputStuff.child(sendButton);
+
     //create title
     title = createElement('h1', 'Virtual Finger Painting');
     title.position(20, 10);
     title.class('title');
+    console.log("got to title");
     //create subtitle
     subtitle = createElement('p', 'a collaborative, interspecies canvas');
     subtitle.position(26, 50);
@@ -171,14 +193,24 @@ function draw(){
         noStroke();
         if(hands.length>0){
             let currHand=hands[0];
+            let meanX=0;
+            let meanY=0;
             for (let i=0;i<currHand.keypoints.length;i++){
                 let currKey=currHand.keypoints[i];
-                fill(237, 177, 81,4);
-                circle(currKey.x,currKey.y,22);
-                pastHandsX.push(currKey.x);
-                pastHandsY.push(currKey.y);
-                
+                //fill(237, 177, 81,4);
+                //circle(currKey.x,currKey.y,22);
+                meanX+=currKey.x;
+                meanY+=currKey.y;
+            //take out this bracket below later
             }
+            meanX=meanX/currHand.keypoints.length;
+            meanY=meanY/currHand.keypoints.length;
+            fill(237, 177, 81,16);
+            circle(meanX,meanY,22);
+                //pastHandsX.push(currKey.x);
+                //pastHandsY.push(currKey.y);
+                
+            //}
             if(hands.length>1){
             let currHand=hands[1];
             for (let i=0;i<currHand.keypoints.length;i++){
@@ -198,16 +230,18 @@ function draw(){
 
 function play() {
     if (!shouldPlay) {
-        //oscillator.start();
         //runDrawLoop();
         shouldPlay = true;
         buttonEl.html('stop');
     } else {
-        //oscillator.stop();
         //exitDrawLoop();
         shouldPlay = false;
-        buttonEl.html('play');
+        buttonEl.html('draw');
     }
+}
+
+function  clearFunct() {
+    background(255);
 }
 
 function gotHands(results){ hands=results;}
