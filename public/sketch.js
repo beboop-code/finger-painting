@@ -101,16 +101,16 @@ async function setup() {
 
     //create name field and button
     //create instruction text
-    instruction = createP('enter your nickname to begin');
-    instruction.id('instruction');
-    instruction.position(20, 170);
+    // instruction = createP('enter your nickname to begin');
+    // instruction.id('instruction');
+    // instruction.position(20, 170);
     nameField = createInput();
     nameField.id('name');
     nameField.attribute('placeholder', 'enter your nickname');
     nameField.position(10, 10);
     submitButton = createButton('Start Drawing!');
     submitButton.id('submit');
-    submitButton.position(nameField.x + nameField.width + 10, 10);
+    submitButton.position(0, nameField.y + nameField.height + 10);
     //submitButton.width=400;
     submitButton.mousePressed(submit);
 
@@ -130,19 +130,12 @@ async function setup() {
     // sendButton.id('send');
     // sendButton.position(freqInput.x + freqInput.width + 10, 50);
     // sendButton.mousePressed(sendFreq);
-    
-    //create play button
-    buttonEl = createButton('stop');
-    buttonEl.mousePressed(play);
-    buttonEl.id('buttonText');
-    buttonEl.position(10, 90);
-
 
     //create a clear button
-    clearButton = createButton('clear');
+    clearButton = createButton('clear canvas');
     clearButton.mousePressed(clearFunct);
     clearButton.id('clear');
-    clearButton.position(10, 190);
+    clearButton.position(submitButton.x+submitButton.width+20, 0);
 
     //create frequency state text
     freqState = createP('idle...');
@@ -157,7 +150,6 @@ async function setup() {
     nameStuff.child(nameField);
     nameStuff.child(submitButton);
     //create input stuff section
-    inputStuff.child(buttonEl);
     inputStuff.child(freqState);
     inputStuff.child(clearButton);
     //inputStuff.child(freqInput);
@@ -174,7 +166,7 @@ async function setup() {
     subtitle.class('subtitle');
     //attribution
     attribution = createElement('p', 'created by alissa kushner');
-    attribution.position(20, height-70);
+    attribution.position(20, height-60);
     attribution.class('attribution');
 
 }
@@ -225,19 +217,6 @@ function draw(){
             }
     }
 }
-}
-
-
-function play() {
-    if (!shouldPlay) {
-        //runDrawLoop();
-        shouldPlay = true;
-        buttonEl.html('stop');
-    } else {
-        //exitDrawLoop();
-        shouldPlay = false;
-        buttonEl.html('draw');
-    }
 }
 
 function  clearFunct() {
