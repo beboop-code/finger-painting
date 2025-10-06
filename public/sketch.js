@@ -188,48 +188,45 @@ function draw(){
             let meanY=0;
             for (let i=0;i<currHand.keypoints.length;i++){
                 let currKey=currHand.keypoints[i];
-                //fill(237, 177, 81,4);
-                //circle(currKey.x,currKey.y,22);
+                fill(237, 177, 81,4);
+                circle(currKey.x,currKey.y,22);
                 meanX+=currKey.x;
                 meanY+=currKey.y;
             //take out this bracket below later
-            }
-            meanX=meanX/currHand.keypoints.length;
-            meanY=meanY/currHand.keypoints.length;
-            fill(237, 177, 81,16);
-            circle(meanX,meanY,22);
-            pastHandsX.push(meanX);
-            pastHandsY.push(meanY);
-            pastHandsX.push(meanX);
-            pastHandsY.push(meanY);
-                //pastHandsX.push(currKey.x);
-                //pastHandsY.push(currKey.y);
+           // }
+            //meanX=meanX/currHand.keypoints.length;
+            //meanY=meanY/currHand.keypoints.length;
+            //fill(237, 177, 81,16);
+            //circle(meanX,meanY,22);
+            // pastHandsX.push(meanX);
+            // pastHandsY.push(meanY);
+    
+                pastHandsX.push(currKey.x);
+                pastHandsY.push(currKey.y);
                 
-            //}
+            }
         if(hands.length>1){
             meanX=0;
             meanY=0;
             let currHand=hands[1];
             for (let i=0;i<currHand.keypoints.length;i++){
                 let currKey=currHand.keypoints[i];
-                //fill(245, 138, 66,4);
-                //circle(currKey.x,currKey.y,22);
-                meanX+=currKey.x;
-                meanY+=currKey.y;
-            //take out this bracket below later
-            }
-            meanX=meanX/currHand.keypoints.length;
-            meanY=meanY/currHand.keypoints.length;
-            fill(245, 138, 66,16);
-            circle(meanX,meanY,22);
-            pastHandsX2.push(meanX);
-            pastHandsY2.push(meanY);
-            pastHandsX2.push(meanX);
-            pastHandsY2.push(meanY);
-            //     pastHandsX2.push(currKey.x);
-            //     pastHandsY2.push(currKey.y);
-                
+                fill(245, 138, 66,4);
+                circle(currKey.x,currKey.y,22);
+            //     meanX+=currKey.x;
+            //     meanY+=currKey.y;
+            // //take out this bracket below later
             // }
+            // meanX=meanX/currHand.keypoints.length;
+            // meanY=meanY/currHand.keypoints.length;
+            // fill(245, 138, 66,16);
+            // circle(meanX,meanY,22);
+            // pastHandsX2.push(meanX);
+            // pastHandsY2.push(meanY);
+             pastHandsX2.push(currKey.x);
+                 pastHandsY2.push(currKey.y);
+                
+             }
             
             }
     }
