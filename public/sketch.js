@@ -46,7 +46,7 @@ function drawPrevHands(data){
 
 function sendFreq(){
     const data = [pastHandsX,pastHandsY,pastHandsX2,pastHandsY2,meToken];//[nameField.value(), freqInput.value()]
-    socket.emit("frequencyi", data);
+    socket.emit("frequency", data);
     console.log(data);
 }
 
@@ -200,6 +200,8 @@ function draw(){
             circle(meanX,meanY,22);
             pastHandsX.push(meanX);
             pastHandsY.push(meanY);
+            pastHandsX.push(meanX);
+            pastHandsY.push(meanY);
                 //pastHandsX.push(currKey.x);
                 //pastHandsY.push(currKey.y);
                 
@@ -220,6 +222,8 @@ function draw(){
             meanY=meanY/currHand.keypoints.length;
             fill(245, 138, 66,16);
             circle(meanX,meanY,22);
+            pastHandsX2.push(meanX);
+            pastHandsY2.push(meanY);
             pastHandsX2.push(meanX);
             pastHandsY2.push(meanY);
             //     pastHandsX2.push(currKey.x);
