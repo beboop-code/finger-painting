@@ -41,7 +41,21 @@ button {
 
 #submit {
   width:120px;
-  height:20px;
+  height:21px;
+  font-family: sans-serif;
+
+}
+
+#clear {
+  width:100px;
+  height:21px;
+  font-family: sans-serif;
+
+}
+
+#name {
+  width:230px;
+  /* height:21px; */
   font-family: sans-serif;
 
 }

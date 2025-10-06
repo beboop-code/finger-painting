@@ -107,17 +107,16 @@ async function setup() {
     nameField = createInput();
     nameField.id('name');
     nameField.attribute('placeholder', 'enter your nickname');
-    nameField.position(10, 10);
+    nameField.position(10, -100);
     submitButton = createButton('Start Drawing!');
     submitButton.id('submit');
     submitButton.position(0, nameField.y + nameField.height + 10);
-    //submitButton.width=400;
     submitButton.mousePressed(submit);
 
     //create inputStuff section
     inputStuff = createDiv();
     inputStuff.id('inputStuff');
-    inputStuff.position(10, 250);
+    inputStuff.position(10,140);
     //create frequency input and button
     
 
@@ -135,13 +134,13 @@ async function setup() {
     clearButton = createButton('clear canvas');
     clearButton.mousePressed(clearFunct);
     clearButton.id('clear');
-    clearButton.position(submitButton.x+submitButton.width+20, 0);
+    clearButton.position(submitButton.x+submitButton.width+19, 2.4);
 
     //create frequency state text
     freqState = createP('idle...');
     freqState.class('freqState');
     freqState.style('width', '400px');
-    freqState.position(20, 130);
+    freqState.position(12, 22);
 
     //create name stuff section
     nameStuff = createDiv();
@@ -166,7 +165,7 @@ async function setup() {
     subtitle.class('subtitle');
     //attribution
     attribution = createElement('p', 'created by alissa kushner');
-    attribution.position(20, height-60);
+    attribution.position(20, height-10);
     attribution.class('attribution');
 
 }
@@ -207,12 +206,20 @@ function draw(){
             let currHand=hands[1];
             for (let i=0;i<currHand.keypoints.length;i++){
                 let currKey=currHand.keypoints[i];
-                fill(245, 138, 66,4);
-                circle(currKey.x,currKey.y,22);
-                pastHandsX2.push(currKey.x);
-                pastHandsY2.push(currKey.y);
-                
+                //fill(245, 138, 66,4);
+                //circle(currKey.x,currKey.y,22);
+                meanX+=currKey.x;
+                meanY+=currKey.y;
+            //take out this bracket below later
             }
+            meanX=meanX/currHand.keypoints.length;
+            meanY=meanY/currHand.keypoints.length;
+            fill(245, 138, 66,16);
+            circle(meanX,meanY,22);
+            //     pastHandsX2.push(currKey.x);
+            //     pastHandsY2.push(currKey.y);
+                
+            // }
             
             }
     }
