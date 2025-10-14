@@ -102,7 +102,7 @@ async function setup() {
     background(255);
     pixelDensity(1);
 
-
+ 
     //create name field and button
     //create instruction text
     // instruction = createP('enter your nickname to begin');
@@ -236,7 +236,7 @@ function draw(){
             // pastHandsY2.push(meanY);
 
 
-            
+
              pastHandsX2.push(currKey.x);
              pastHandsY2.push(currKey.y);
                 
